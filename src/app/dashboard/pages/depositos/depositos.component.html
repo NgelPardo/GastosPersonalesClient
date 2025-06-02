@@ -1,0 +1,40 @@
+<div class="flex items-center justify-center p-12">
+    <div class="mx-auto w-full max-w-[550px]">
+      <h1 class="text-lg font-bold leading-5 my-3">Crear Movimiento de Deposito</h1>
+      <form
+        [formGroup]="movimientoDepositoForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="my-2">
+          <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Fondo Monetario</label>
+          <select
+            formControlName = "fondoMonetarioId"
+            class="bg-gray-50 border border-blue-900 text-gray-900 outline-blue-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          >
+            @for (item of fondoMonetarioResource.value() ?? []; track item.id) {
+              <option [value]="item.id">{{ item.nombre }} - {{ item.tipo }} - ${{ item.montoActual }}</option>
+            }
+          </select>
+        </div>
+        <div class="my-2">
+          <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Monto</label>
+          <input
+            type="number"
+            min="0"
+            step="any"
+            formControlName = "monto"
+            class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+        </div>
+        @if(hasError()){
+            <div role="alert" class="alert alert-error text-slate-500">
+              <span>Por favor revise la información ingresada.</span>
+            </div>
+          }
+        <div class="mt-4 flex justify-center">
+          <button type="submit" class="bg-gray-900 text-white p-2 rounded hover:bg-green-600">
+            Guardar Movimiento de Gasto
+          </button>
+        </div>
+      </form>
+    </div>
+</div>

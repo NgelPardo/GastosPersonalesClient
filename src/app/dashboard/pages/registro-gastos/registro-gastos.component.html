@@ -1,0 +1,86 @@
+<div class="flex items-center justify-center p-12">
+  <div class="mx-auto w-full max-w-[550px]">
+    <h1 class="text-lg font-bold leading-5 my-3">Crear Movimiento de Gasto</h1>
+    <form
+      [formGroup]="movimientoGastoForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="my-2">
+        <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Fondo Monetario</label>
+        <select
+          formControlName = "fondoMonetarioId"
+          class="bg-gray-50 border border-blue-900 text-gray-900 outline-blue-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          @for (item of fondoMonetarioResource.value() ?? []; track item.id) {
+            <option [value]="item.id">{{ item.nombre }} - {{ item.tipo }} - ${{ item.montoActual }}</option>
+          }
+        </select>
+      </div>
+      <div class="my-2">
+        <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Observaciones</label>
+        <input
+          type="text"
+          formControlName = "observaciones"
+          class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+      </div>
+      <div class="my-2">
+        <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Nombre del Comercio</label>
+        <input
+          type="text"
+          formControlName = "nombreComercio"
+          class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+      </div>
+      <div class="my-2">
+        <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Tipo de Documento</label>
+        <select
+          formControlName = "formaDePago"
+          class="bg-gray-50 border border-blue-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-blue-400">
+          <option value="Comprobante">Comprobante</option>
+          <option value="Factura">Factura</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <h1 class="text-lg font-bold leading-5 my-3">Detalle de Gasto</h1>
+      <div formArrayName="detalles">
+        <div *ngFor="let detalle of detalles.controls; let i = index" [formGroupName]="i">
+          <div class="flex my-2 space-x-4">
+            <div class="w-1/2">
+              <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Tipo de Gasto</label>
+              <select
+                formControlName = "tipoGastoId"
+                class="bg-gray-50 border border-blue-900 text-gray-900 text-sm rounded-lg focus:ring-blue-500 my-2 focus:border-blue-500 block w-full p-2.5 bg-white dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                @for (item of tiposDeGastoResource.value() ?? []; track item.id) {
+                  <option [value]="item.id">{{ item.descripcion }}</option>
+                }
+              </select>
+            </div>
+            <div class="w-1/2">
+              <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Monto</label>
+              <input
+                type="number"
+                min="0"
+                step="any"
+                formControlName = "monto"
+                class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex my-2 justify-between">
+        <button (click)="addDetalle()" type="button" class="mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600">Añadir Detalle</button>
+        <button (click)="removeLastDetalle()" type="button" class="text-red-500 mt-2">Eliminar detalle</button>
+      </div>
+      @if(hasError()){
+          <div role="alert" class="alert alert-error text-slate-500">
+            <span>Por favor revise la información ingresada.</span>
+          </div>
+        }
+      <div class="mt-4 flex justify-center">
+        <button type="submit" class="bg-gray-900 text-white p-2 rounded hover:bg-green-600">
+          Guardar Movimiento de Gasto
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

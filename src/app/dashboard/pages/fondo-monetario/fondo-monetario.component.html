@@ -1,0 +1,47 @@
+<div class="bg-gray-100 flex justify-center items-center h-screen">
+  <div class="w-1/2 h-screen hidden lg:block">
+    <div class="p-6">
+      <h1 class="text-lg font-bold leading-5 my-3">Crear Fondo Monetario</h1>
+      <div class="px-15 py-1">
+        <form
+          [formGroup]="fondoMonetarioForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="my-2">
+            <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Nombre</label>
+            <input
+              type="text"
+              formControlName = "nombre"
+              class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+          </div>
+          <div class="my-2">
+            <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Tipo</label>
+            <select
+              formControlName = "tipo"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option value="Cuenta Bancaria">Cuenta Bancaria</option>
+              <option value="Caja Menuda">Caja Menuda</option>
+            </select>
+          </div>
+          <button type="submit" class="px-4 py-1 bg-gray-900 rounded-md text-white text-sm sm:text-lg shadow-md">Guardar</button>
+        </form>
+        @if(hasError()){
+          <div role="alert" class="alert alert-error text-slate-500">
+            <span>Por favor revise la información ingresada.</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="w-1/2 h-screen hidden lg:block">
+    <div class="p-6">
+      <h1 class="text-lg font-bold leading-5 my-3">Tipos de Gasto</h1>
+      <app-mat-table
+        [data]="fondoMonetarioResource.value() ?? []"
+        [columns]="columnas"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)">
+      </app-mat-table>
+    </div>
+  </div>
+</div>

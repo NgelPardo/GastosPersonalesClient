@@ -1,0 +1,64 @@
+<div id="menu" class="bg-gray-900 min-h-screen z-10 text-slate-300 w-64 left-0 h-screen overflow-y-auto">
+    <div id="logo" class="my-4 px-6">
+        <h1 class="text-lg md:text-2xl font-bold text-white">Gastos<span class="text-blue-500">Personales</span></h1>
+        <p class="text-slate-500 text-sm">Gestiona tus movimientos</p>
+    </div>
+    <div id="profile" class="px-6 py-3">
+        <p class="text-slate-500">Bienvenido,</p>
+        <a class="inline-flex space-x-2 items-center">
+            <span class="text-sm md:text-base font-bold">
+                {{ authService.user()?.nombre }}
+            </span>
+        </a>
+    </div>
+    <div id="nav" class="w-full px-6">
+
+        <hr class="my-4 md:min-w-full">
+        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">Mantenimientos</h6>
+        @for (item of menuItemsMantenimientos; track $index) {
+          <a
+            href="#"
+            [routerLink]="item.path"
+            routerLinkActive="bg-blue-800"
+            class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 hover:bg-white/5 transition ease-linear duration-150">
+            <div class="flex flex-col">
+                <span class="text-lg font-bold leading-5 text-white">{{ item.title }}</span>
+                <span class="text-sm text-white/50 hidden md:block">{{ item.path }}</span>
+            </div>
+          </a>
+        }
+        <hr class="my-4 md:min-w-full">
+        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">Movimientos</h6>
+        @for (item of menuItemsMovimientos; track $index) {
+          <a
+            href="#"
+            [routerLink]="item.path"
+            routerLinkActive="bg-blue-800"
+            class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 hover:bg-white/5 transition ease-linear duration-150">
+            <div class="flex flex-col">
+                <span class="text-lg font-bold leading-5 text-white">{{ item.title }}</span>
+                <span class="text-sm text-white/50 hidden md:block">{{ item.path }}</span>
+            </div>
+          </a>
+        }
+        <hr class="my-4 md:min-w-full">
+        <h6 class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">Consultas y Reportes</h6>
+        @for (item of menuItemsConsultas; track $index) {
+          <a
+            href="#"
+            [routerLink]="item.path"
+            routerLinkActive="bg-blue-800"
+            class="w-full px-2 inline-flex space-x-2 items-center border-b border-slate-700 py-3 hover:bg-white/5 transition ease-linear duration-150">
+            <div class="flex flex-col">
+                <span class="text-lg font-bold leading-5 text-white">{{ item.title }}</span>
+                <span class="text-sm text-white/50 hidden md:block">{{ item.path }}</span>
+            </div>
+          </a>
+        }
+    </div>
+    <div class="gap-4 my-3 mx-7">
+      <button
+        (click)="authService.logout()"
+        type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Salir</button>
+    </div>
+</div>

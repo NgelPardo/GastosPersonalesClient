@@ -1,0 +1,40 @@
+<div class="p-12">
+  <div class="mx-auto w-full mb-5">
+    <h1 class="text-lg font-bold leading-5 my-3">Resumen de Movimientos</h1>
+  </div>
+  <div class="mx-auto w-full mb-5">
+    <h1 class="text-lg leading-5 my-3">Seleccione un rango de fechas para consultar sus movimientos</h1>
+  </div>
+  <form
+    [formGroup]="consultaMovimientosForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="flex justify-between w-full">
+      <mat-form-field>
+        <mat-label>Rango de fechas</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="Start date" formControlName="startDate">
+          <input matEndDate placeholder="End date" formControlName="endDate">
+        </mat-date-range-input>
+        <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded hover:bg-blue-600 w-32 h-12">Buscar</button>
+    </div>
+  </form>
+  <div>
+    @if (movimientosResource.isLoading()) {
+      <p>Cargando movimientos...</p>
+    } @else if (movimientosResource.error()) {
+      <p class="text-red-500">Ocurrió un error al cargar.</p>
+    } @else if (movimientosResource.value()) {
+      <app-mat-table
+        [data]="movimientosResource.value() ?? []"
+        [columns]="columnas">
+      </app-mat-table>
+    }
+  </div>
+</div>
+
+

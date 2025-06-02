@@ -1,0 +1,69 @@
+<div class="bg-gray-100 flex justify-center items-center h-screen">
+  <div class="w-1/2 h-screen hidden lg:block">
+    <div class="p-6">
+      <h1 class="text-lg font-bold leading-5 my-3">Crear Presupuesto</h1>
+      <div class="px-15 py-1">
+        <form
+          [formGroup]="presupuestoForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div class="my-2">
+            <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Tipo De Gasto</label>
+            <select
+              formControlName = "tipoGastoId"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            >
+              @for (item of tiposDeGastoResource.value() ?? []; track item.id) {
+                <option [value]="item.id">{{ item.descripcion }}</option>
+              }
+            </select>
+          </div>
+          <div class="my-2">
+            <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300">Monto Presupuestado</label>
+              <input
+                type="number"
+                min="0"
+                step="any"
+                formControlName = "montoPresupuestado"
+                class="block w-full border border-blue-900 outline-blue-400 px-2 py-2 text-sm sm:text-md rounded-md my-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white" id="name">
+          </div>
+          <div class="my-2">
+            <label for="name" class="text-sm sm:text-md font-bold text-gray-700 dark:text-gray-300 block mb-1">Fecha</label>
+            <mat-form-field
+              appearance="outline"
+              class="w-full !bg-gray-50 dark:!bg-gray-700 rounded-lg !h-[53px]"
+              color="primary"
+              >
+              <mat-label>Mes y Año</mat-label>
+              <input matInput [matDatepicker]="dp" formControlName="fecha">
+              <mat-hint>MM/YYYY</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp
+                              startView="multi-year"
+                              (monthSelected)="setMonthAndYear($event, dp)"
+                              panelClass="example-month-picker">
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <button type="submit" class="px-4 py-1 my-7 bg-gray-900 rounded-md text-white text-sm sm:text-lg shadow-md">Guardar</button>
+        </form>
+        @if(hasError()){
+          <div role="alert" class="alert alert-error text-slate-500">
+            <span>Por favor revise la información ingresada.</span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="w-1/2 h-screen hidden lg:block">
+    <div class="p-6">
+      <h1 class="text-lg font-bold leading-5 my-3">Mis Presupuestos</h1>
+      <app-mat-table
+        [data]="presupuestosResource.value() ?? []"
+        [columns]="columnas"
+        (edit)="onEdit($event)"
+        (delete)="onDelete($event)">
+      </app-mat-table>
+    </div>
+  </div>
+</div>
