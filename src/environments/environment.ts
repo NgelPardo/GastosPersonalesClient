@@ -1,3 +1,3 @@
 export const environment = {
-  baseUrl: 'https://localhost:7185/api',
+  baseUrl: 'https://gastospersonalesapi20250602180346.azurewebsites.net/api',
 };
