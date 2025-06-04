@@ -3,20 +3,20 @@
   (ngSubmit)="onSubmit()"
 >
   <div class="mb-4">
-    <label for="username" class="block text-gray-600">Username</label>
+    <label for="username" class="block text-gray-600">Usuario</label>
     <input
       type="text"
       formControlName = "email"
       class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
   </div>
   <div class="mb-4">
-    <label for="password" class="block text-gray-600">Password</label>
+    <label for="password" class="block text-gray-600">Contraseña</label>
     <input
       type="password"
       formControlName = "password"
       class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500" autocomplete="off">
   </div>
-  <button type="submit" class="bg-gray-900 hover:bg-blue-900 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
+  <button type="submit" class="bg-gray-900 hover:bg-blue-900 text-white font-semibold rounded-md py-2 px-4 w-full">Ingresar</button>
 
   @if(hasError()){
     <div role="alert" class="alert alert-error text-slate-500">
